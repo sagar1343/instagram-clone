@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flex justify-center items-center px-4 py-20">
+    <div class="card bg-base-100 shadow-xl w-full max-w-sm">
+        <div class="card-body px-8 py-8">
+            <div class="text-center">
+                <h2 class="card-title text-2xl justify-center mt-3">Welcome Back</h2>
+                <p class="text-base-content/60 text-sm mt-1">Sign in to manage your job listings.</p>
+            </div>
+            <form action="{% url 'login-user' %}" class="space-y-4" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label for="{{ form.username.id_for_label }}" class="label">{{ form.username.label }}</label>
+                    {{ form.username }}
+                    <p>{{ form.username.errors }}</p>
+                </div>
+                <div>
+                    <label for="{{ form.password.id_for_label }}" class="label"> {{ form.password.label }}</label>
+                    {{form.password}}
+                    <p>{{ form.password.errors }}</p>
+                </div>
+                <button type="submit" class="btn btn-primary w-full mt-8">
+                    Login
+                </button>
+            </form>
+            <p class="text-sm text-center mt-6 text-base-content/60">
+                Don't have an account?
+                <a href="{% url 'register-user' %}" class="link link-primary font-medium">Register</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

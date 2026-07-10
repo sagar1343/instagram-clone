@@ -1,10 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="grid grid-cols-12 gap-8 h-screen">
-    <aside class="bg-red-500 col-span-2 h-full"></aside>
-    <main class="bg-blue-500 col-span-6 flex flex-col items-center gap-8 p-2">
-
+<div class="grid grid-cols-12 h-screen overflow-hidden gap-8 pt-20 pb-10 px-6">
+    <aside class="col-span-2 h-full">
+        <ul class="menu h-full bg-base-200 rounded-box w-56">
+            <li>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Item 2
+                </a>
+            </li>
+            <li>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Item 1
+                </a>
+            </li>
+            <li>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Item 3
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <main class="bg-blue-500 col-span-6 overflow-y-auto flex flex-col items-center gap-8 p-2">
         <div class="flex gap-4 w-full">
             <div class="h-20">
                 <div class="avatar ">
@@ -44,8 +76,8 @@
                 </div>
             </div>
         </div>
-        <div>
 
+        <div class="hide-scrollbar">
             {% for post in posts %}
             <div class="card bg-base-100 w-96 shadow-sm">
                 <div class="py-2 px-3">
@@ -96,6 +128,93 @@
             {% endfor %}
         </div>
     </main>
-    <aside class="bg-green-500 col-span-4"></aside>
+    <aside class="col-span-4">
+        <ul class="list bg-base-100 rounded-box shadow-md">
+
+            <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Most played songs this week</li>
+
+            <li class="list-row">
+                <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/1@94.webp" />
+                </div>
+                <div>
+                    <div>Dio Lupa</div>
+                    <div class="text-xs uppercase font-semibold opacity-60">Remaining Reason</div>
+                </div>
+                <button class="btn btn-square btn-ghost">
+                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+                            stroke="currentColor">
+                            <path d="M6 3L20 12 6 21 6 3z"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="btn btn-square btn-ghost">
+                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+                            stroke="currentColor">
+                            <path
+                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                            </path>
+                        </g>
+                    </svg>
+                </button>
+            </li>
+
+            <li class="list-row">
+                <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/4@94.webp" />
+                </div>
+                <div>
+                    <div>Ellie Beilish</div>
+                    <div class="text-xs uppercase font-semibold opacity-60">Bears of a fever</div>
+                </div>
+                <button class="btn btn-square btn-ghost">
+                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+                            stroke="currentColor">
+                            <path d="M6 3L20 12 6 21 6 3z"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="btn btn-square btn-ghost">
+                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+                            stroke="currentColor">
+                            <path
+                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                            </path>
+                        </g>
+                    </svg>
+                </button>
+            </li>
+
+            <li class="list-row">
+                <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/3@94.webp" />
+                </div>
+                <div>
+                    <div>Sabrino Gardener</div>
+                    <div class="text-xs uppercase font-semibold opacity-60">Cappuccino</div>
+                </div>
+                <button class="btn btn-square btn-ghost">
+                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+                            stroke="currentColor">
+                            <path d="M6 3L20 12 6 21 6 3z"></path>
+                        </g>
+                    </svg>
+                </button>
+                <button class="btn btn-square btn-ghost">
+                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+                            stroke="currentColor">
+                            <path
+                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                            </path>
+                        </g>
+                    </svg>
+                </button>
+            </li>
+
+        </ul>
+    </aside>
 </div>
 {% endblock %}

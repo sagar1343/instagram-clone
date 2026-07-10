@@ -17,13 +17,22 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
-
 <body>
-    <nav class="navbar bg-base-100 shadow-sm">
+    {% if messages %}
+    <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm">
+        {% for message in messages %}
+        <div role="alert" class="alert alert-{{ message.tags }} shadow-lg">
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <nav class="navbar fixed top-0 left-0 right-0 z-10 bg-base-100 shadow-sm">
         <div class="flex-1">
             <a class="btn btn-ghost text-2xl grand-hotel-regular">Instagram</a>
         </div>
-        <div class="flex-none">
+        <div class="flex items-center gap-4">
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
                     <div class="indicator">
@@ -34,11 +43,12 @@
                     </div>
                 </div>
             </div>
+
+            {% if request.user.is_authenticated %}
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
-                        <img alt="Tailwind CSS Navbar component"
-                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        <img alt="user-profile-photo" src="{{ request.user.profile.avatar.url }}" />
                     </div>
                 </div>
                 <ul tabindex="-1"
@@ -50,9 +60,15 @@
                         </a>
                     </li>
                     <li><a>Settings</a></li>
-                    <li><a>Logout</a></li>
+                    <li><a href="{% url 'logout-user' %}">Logout</a></li>
                 </ul>
             </div>
+            {% else %}
+            <div class="flex gap-2">
+                <a href="{% url 'login-user' %}" class="link">Login</a>
+                <a href="{% url 'register-user' %}" class="link">Register</a>
+            </div>
+            {% endif %}
         </div>
     </nav>
     {% block content %}

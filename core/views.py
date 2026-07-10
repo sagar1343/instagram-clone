@@ -1,8 +1,76 @@
-from django.shortcuts import render
-from .models import Post
+from django.shortcuts import render, redirect
+from .models import Post, Profile
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from .forms import LoginForm, RegisterForm, ProfileForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+def register_user(request):
+    form = RegisterForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        username = form.cleaned_data.get("username")
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+
+        exist = User.objects.filter(username=username).exists()
+        if exist:
+            messages.warning(
+                request=request, message="Already registered user, please try login"
+            )
+            return redirect("/login")
+        User.objects.create_user(username=username, email=email, password=password)
+        messages.success(request=request, message="registration successfull")
+        return redirect("/login")
+    return render(request, "registration.html", {"form": form})
+
+
+def login_user(request):
+    form = LoginForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+
+            user = authenticate(request=request, username=username, password=password)
+            if not user:
+                messages.error(request=request, message="Invalid username or password")
+                return redirect("/login")
+            login(request=request, user=user)
+        return redirect("/profile")
+    return render(request, "login.html", {"form": form})
+
+
+def logout_user(request):
+    logout(request=request)
+    messages.success(request=request, message="Logout Succesfull")
+    return redirect("/login")
+
+
 def home(request):
     posts = Post.objects.all()
     return render(request=request, template_name="index.html", context={"posts": posts})
+
+
+@login_required
+def profile(request):
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            Profile.objects.create(
+                user=request.user,
+                bio=form.cleaned_data.get(
+                    "bio",
+                ),
+                birth_date=form.cleaned_data.get("birth_date"),
+                avatar=form.cleaned_data.get("avatar"),
+            )
+            messages.success(request, message="created profile")
+            return redirect("/")
+        else:
+            messages.error(request, message=form.errors)
+
+    form = ProfileForm()
+    return render(request, "profileform.html", {"form": form})
