@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="grid grid-cols-12 gap-8 h-screen">
+    <aside class="bg-red-500 col-span-2 h-full"></aside>
+    <main class="bg-blue-500 col-span-6 flex flex-col items-center gap-8 p-2">
+
+        <div class="flex gap-4 w-full">
+            <div class="h-20">
+                <div class="avatar ">
+                    <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <div class="h-20">
+                    <div class="avatar ">
+                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
+                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+                        </div>
+                    </div>
+                </div>
+                <div class="h-20">
+                    <div class="avatar ">
+                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
+                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+                        </div>
+                    </div>
+                </div>
+                <div class="h-20">
+                    <div class="avatar ">
+                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
+                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+                        </div>
+                    </div>
+                </div>
+                <div class="h-20">
+                    <div class="avatar ">
+                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
+                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+            {% for post in posts %}
+            <div class="card bg-base-100 w-96 shadow-sm">
+                <div class="py-2 px-3">
+                    <div class="flex items-center gap-3">
+                        <div class="">
+                            <div class="avatar ">
+                                <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring-2 ring-offset-2">
+                                    <img src="{{ post.user.profile.avatar.url }}" />
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <span>{{ post.user.username }}</span>
+                    </div>
+                </div>
+                <figure>
+                    <img src="{{ post.attachment.url }}" alt="post" />
+                </figure>
+                <div class="card-body">
+                    <p> {{ post.caption }}</p>
+                    <div class="card-actions justify-between">
+                        <div class="flex gap-3">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined">
+                                    favorite
+                                </span>
+                                <span>254</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined">
+                                    mode_comment
+                                </span>
+                                <span>40</span>
+                            </div>
+                            <span class="material-symbols-outlined">
+                                send
+                            </span>
+                        </div>
+
+                        <span class="material-symbols-outlined">
+                            bookmark
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <aside class="bg-green-500 col-span-4"></aside>
+</div>
+{% endblock %}
