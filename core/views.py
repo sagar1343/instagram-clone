@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Profile
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -76,3 +76,15 @@ def create_post(request):
         messages.success(request, message="Post created")
         return redirect("/")
     return render(request, "postform.html", {"form": form})
+
+
+@login_required
+def like_post(request, id):
+    if request.method == "POST":
+        post = get_object_or_404(Post, id=id)
+
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+    return redirect(f"/#-{id}")

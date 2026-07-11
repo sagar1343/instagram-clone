@@ -36,7 +36,7 @@
             </li>
         </ul>
     </aside>
-    <main class="bg-blue-500 col-span-6 overflow-y-auto flex flex-col items-center gap-8 p-2">
+    <main class="bg-blue-500 col-span-6 hide-scrollbar overflow-y-auto flex flex-col items-center gap-8 p-2">
         <div class="flex gap-4 w-full">
             <div class="h-20">
                 <div class="avatar ">
@@ -77,9 +77,9 @@
             </div>
         </div>
 
-        <div class="hide-scrollbar">
+        <div>
             {% for post in posts %}
-            <div class="card bg-base-100 w-96 shadow-sm">
+            <div id="post-{{ post.id }}" class="card bg-base-100 w-96 shadow-sm">
                 <div class="py-2 px-3">
                     <div class="flex items-center gap-3">
                         <div class="">
@@ -103,10 +103,17 @@
                     <div class="card-actions justify-between">
                         <div class="flex gap-3">
                             <div class="flex items-center gap-1">
-                                <span class="material-symbols-outlined">
-                                    favorite
-                                </span>
-                                <span>254</span>
+                                <form action="{% url 'like-post' post.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="">
+                                        {% if request.user in post.likes.all %}
+                                        dislike
+                                        {% else %}
+                                        like
+                                        {% endif %}
+                                    </button>
+                                </form>
+                                <span>{{ post.like_counts }}</span>
                             </div>
                             <div class="flex items-center gap-1">
                                 <span class="material-symbols-outlined">
