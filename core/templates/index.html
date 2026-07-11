@@ -93,6 +93,7 @@
 
                         <span>{{ post.user.username }}</span>
                     </div>
+                    <a href="{% url 'create-post' %}" class="btn btn-success"> Edit </a>
                 </div>
                 <figure>
                     <img src="{{ post.attachment.url }}" alt="post" />

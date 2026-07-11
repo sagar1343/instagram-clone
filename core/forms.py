@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, Post
 
 
 class LoginForm(forms.Form):
@@ -28,3 +28,9 @@ class ProfileForm(forms.ModelForm):
             "avatar": forms.FileInput({"class": "file-input"}),
             "birth_date": forms.DateInput({"class": "input", "type": "date"}),
         }
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["attachment", "caption"]

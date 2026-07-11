@@ -3,7 +3,7 @@
 <div class="mt-20 px-8">
     <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" class="space-y-4">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form }}
         <button type="submit" class="btn btn-primary"> Submit </button>
     </form>
 </div>

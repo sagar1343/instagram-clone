@@ -3,7 +3,7 @@ from .models import Post, Profile
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-from .forms import LoginForm, RegisterForm, ProfileForm
+from .forms import LoginForm, RegisterForm, ProfileForm, PostForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -55,7 +55,8 @@ def home(request):
 
 @login_required
 def profile(request):
-    form = ProfileForm(request.POST or None, request.FILES or None)
+    instance = Profile.objects.filter(user=request.user).first()
+    form = ProfileForm(request.POST or None, request.FILES or None, instance=instance)
     if request.method == "POST" and form.is_valid():
         profile = form.save(commit=False)
         profile.user = request.user
@@ -63,3 +64,15 @@ def profile(request):
         messages.success(request, message="created profile")
         return redirect("/")
     return render(request, "profileform.html", {"form": form})
+
+
+@login_required
+def create_post(request):
+    form = PostForm(request.POST or None, request.FILES or None)
+    if request.method == "POST" and form.is_valid():
+        post = form.save(commit=False)
+        post.user = request.user
+        post.save()
+        messages.success(request, message="Post created")
+        return redirect("/")
+    return render(request, "postform.html", {"form": form})
