@@ -29,16 +29,15 @@ def register_user(request):
 
 def login_user(request):
     form = LoginForm(request.POST or None)
-    if request.method == "POST":
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
+    if request.method == "POST" and form.is_valid():
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
 
-            user = authenticate(request=request, username=username, password=password)
-            if not user:
-                messages.error(request=request, message="Invalid username or password")
-                return redirect("/login")
-            login(request=request, user=user)
+        user = authenticate(request=request, username=username, password=password)
+        if not user:
+            messages.error(request=request, message="Invalid username or password")
+            return redirect("/login")
+        login(request=request, user=user)
         return redirect("/profile")
     return render(request, "login.html", {"form": form})
 
@@ -56,21 +55,11 @@ def home(request):
 
 @login_required
 def profile(request):
-    if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            Profile.objects.create(
-                user=request.user,
-                bio=form.cleaned_data.get(
-                    "bio",
-                ),
-                birth_date=form.cleaned_data.get("birth_date"),
-                avatar=form.cleaned_data.get("avatar"),
-            )
-            messages.success(request, message="created profile")
-            return redirect("/")
-        else:
-            messages.error(request, message=form.errors)
-
-    form = ProfileForm()
+    form = ProfileForm(request.POST or None, request.FILES or None)
+    if request.method == "POST" and form.is_valid():
+        profile = form.save(commit=False)
+        profile.user = request.user
+        form.save()
+        messages.success(request, message="created profile")
+        return redirect("/")
     return render(request, "profileform.html", {"form": form})

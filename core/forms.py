@@ -1,4 +1,5 @@
 from django import forms
+from .models import Profile
 
 
 class LoginForm(forms.Form):
@@ -18,11 +19,12 @@ class RegisterForm(forms.Form):
     )
 
 
-class ProfileForm(forms.Form):
-    bio = forms.CharField(widget=forms.TextInput({"class": "input"}))
-    avatar = forms.ImageField(
-        widget=forms.FileInput({"class": "input", "type": "file", "accepts": ".jpg"})
-    )
-    birth_date = forms.DateField(
-        widget=forms.DateInput({"class": "input", "type": "date"})
-    )
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["bio", "avatar", "birth_date"]
+        widgets = {
+            "bio": forms.TextInput(),
+            "avatar": forms.FileInput({"class": "file-input"}),
+            "birth_date": forms.DateInput({"class": "input", "type": "date"}),
+        }
