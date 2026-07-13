@@ -103,9 +103,16 @@
                 </div>
                 <div class="mt-6 grid grid-cols-3 gap-2">
                     {% for post in posts %}
-                    <a href="/#post-{{ post.id }}" class="h-[200px] cursor-pointer">
-                        <img src="{{ post.attachment.url }}" class="object-cover w-full h-full">
-                    </a>
+                    <div class="relative h-[200px] group">
+                        <a href=" /#post-{{ post.id }}" class=" cursor-pointer">
+                            <img src="{{ post.attachment.url }}" class="object-cover w-full h-full hover:brightness-50">
+                        </a>
+                        <div
+                            class="flex gap-4 justify-center opacity-0 group-hover:opacity-100 absolute top-[50%] left-0 right-0">
+                            <a class="link link-hover text-white">Edit</a>
+                            <a class="link link-hover text-white">Delete</a>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </section>

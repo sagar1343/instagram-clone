@@ -10,7 +10,10 @@
                             alt="{{ post.user.username }}" />
                     </div>
                 </div>
-                <span class="font-semibold text-sm">{{ post.user.username }}</span>
+                {% load custom_tags %}
+                <span class="font-semibold text-sm">{{ post.user.username }} <i class="ph-bold ph-dot"></i>
+                    <span class="font-light text-xs"> {{ post.created_at | timesince | short_time }}</span>
+                </span>
             </div>
             <i class="ph-fill ph-dots-three-outline text-lg cursor-pointer"></i>
         </div>
