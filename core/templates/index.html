@@ -1,228 +1,219 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
+<div class="flex min-h-screen bg-white pt-16 lg:pt-0">
+  <aside
+    class="hidden lg:flex w-64 shrink-0 sticky top-0 h-screen flex-col border-r border-gray-200 bg-white px-3 py-5"
+  >
+    <a
+      href="{% url 'home' %}"
+      class="mb-6 block px-3 pt-2 pb-4 text-3xl grand-hotel-regular leading-none cursor-pointer"
+    >
+      Instagram
+    </a>
 
-{% block content %}
-<div class="grid grid-cols-12 h-screen overflow-hidden gap-8 pt-20 pb-10 px-6">
-    <aside class="col-span-2 h-full">
-        <ul class="menu h-full bg-base-200 rounded-box w-56">
-            <li>
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                    Item 2
-                </a>
-            </li>
-            <li>
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Item 1
-                </a>
-            </li>
-            <li>
-                <a>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    Item 3
-                </a>
-            </li>
-        </ul>
-    </aside>
-    <main class="bg-blue-500 col-span-6 hide-scrollbar overflow-y-auto flex flex-col items-center gap-8 p-2">
-        <div class="flex gap-4 w-full">
-            <div class="h-20">
-                <div class="avatar ">
-                    <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                    </div>
-                </div>
+    <nav class="flex flex-1 flex-col gap-1">
+      <a
+        href="{% url 'home' %}"
+        class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-bold hover:bg-gray-50 transition-colors cursor-pointer"
+      >
+        <i class="ph-fill ph-house text-[26px]"></i>
+        <span>Home</span>
+      </a>
+      <a
+        class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer"
+      >
+        <i class="ph ph-magnifying-glass text-[26px]"></i>
+        <span>Search</span>
+      </a>
+      <a
+        class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer"
+      >
+        <i class="ph ph-compass text-[26px]"></i>
+        <span>Explore</span>
+      </a>
+      <a
+        class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer"
+      >
+        <i class="ph ph-film-strip text-[26px]"></i>
+        <span>Reels</span>
+      </a>
+      <a
+        class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer"
+      >
+        <i class="ph ph-plus-square text-[26px]"></i>
+        <span>Create</span>
+      </a>
+      <a
+        class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer"
+      >
+        <span
+          class="inline-flex size-[26px] items-center justify-center overflow-hidden rounded-full"
+        >
+          {% if request.user.profile.avatar %}
+          <img
+            class="size-full object-cover"
+            src="{{ request.user.profile.avatar.url }}"
+            alt="{{ request.user.username }}"
+          />
+          {% else %}
+          <i class="ph ph-user-circle text-[26px]"></i>
+          {% endif %}
+        </span>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+    <a
+      class="mt-auto flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer"
+    >
+      <i class="ph ph-list text-[26px]"></i>
+      <span>More</span>
+    </a>
+  </aside>
+
+  <div class="flex flex-1 min-w-0 justify-center gap-10 px-6 py-8">
+    <main class="w-full max-w-xl shrink-0">
+      <div
+        class="flex items-center gap-4 overflow-x-auto overflow-y-visible hide-scrollbar pb-4 mb-4 border-b border-gray-200"
+      >
+        <div class="relative inline-flex shrink-0 cursor-pointer border-0 bg-transparent p-0">
+          <div
+            class="size-[66px] shrink-0 rounded-full p-[2px] bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5]"
+          >
+            <div class="size-full rounded-full border-2 border-white overflow-hidden">
+              <img
+                class="size-full max-w-none object-cover"
+                src="{{ request.user.profile.avatar.url }}"
+                alt="{{ request.user.username }}"
+              />
             </div>
-            <div class="flex gap-4">
-                <div class="h-20">
-                    <div class="avatar ">
-                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
-                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
-                        </div>
-                    </div>
-                </div>
-                <div class="h-20">
-                    <div class="avatar ">
-                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
-                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
-                        </div>
-                    </div>
-                </div>
-                <div class="h-20">
-                    <div class="avatar ">
-                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
-                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
-                        </div>
-                    </div>
-                </div>
-                <div class="h-20">
-                    <div class="avatar ">
-                        <div class="ring-primary ring-offset-base-100 w-16 rounded-full ring-2 ring-offset-2">
-                            <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <span
+            class="absolute bottom-0 right-0 flex size-5 items-center justify-center rounded-full bg-white text-gray-800"
+          >
+            <i class="ph-fill ph-plus-circle text-xl"></i>
+          </span>
         </div>
-
-        <div>
-            {% for post in posts %}
-            <div id="post-{{ post.id }}" class="card bg-base-100 w-96 shadow-sm">
-                <div class="py-2 px-3">
-                    <div class="flex items-center gap-3">
-                        <div class="">
-                            <div class="avatar ">
-                                <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring-2 ring-offset-2">
-                                    <img src="{{ post.user.profile.avatar.url }}" />
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <span>{{ post.user.username }}</span>
-                    </div>
-                    <a href="{% url 'create-post' %}" class="btn btn-success"> Edit </a>
-                </div>
-                <figure>
-                    <img src="{{ post.attachment.url }}" alt="post" />
-                </figure>
-                <div class="card-body">
-                    <p> {{ post.caption }}</p>
-                    <div class="card-actions justify-between">
-                        <div class="flex gap-3">
-                            <div class="flex items-center gap-1">
-                                <form action="{% url 'like-post' post.id %}" method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="">
-                                        {% if request.user in post.likes.all %}
-                                        dislike
-                                        {% else %}
-                                        like
-                                        {% endif %}
-                                    </button>
-                                </form>
-                                <span>{{ post.like_counts }}</span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <span class="material-symbols-outlined">
-                                    mode_comment
-                                </span>
-                                <span>40</span>
-                            </div>
-                            <span class="material-symbols-outlined">
-                                send
-                            </span>
-                        </div>
-
-                        <span class="material-symbols-outlined">
-                            bookmark
-                        </span>
-
-                    </div>
-                </div>
+        {% for user_profile in request.user.profile.following.all %}
+        <div class="relative inline-flex shrink-0 cursor-pointer border-0 bg-transparent p-0">
+          <div
+            class="size-[66px] shrink-0 rounded-full p-[2px] bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5]"
+          >
+            <div class="size-full rounded-full border-2 border-white overflow-hidden">
+              <img
+                class="size-full max-w-none object-cover"
+                src="{{ user_profile.avatar.url }}"
+                alt="{{ user_profile.user.username }}"
+              />
             </div>
-            {% endfor %}
+          </div>
         </div>
+        {% endfor %}
+      </div>
+      <div class="space-y-6">
+        {% for post in posts %}
+        <div id="post-{{ post.id }}" class="card bg-gray-100 border border-gray-200 rounded-2xl">
+          <div class="py-2 px-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div
+                class="size-8 shrink-0 rounded-full p-[1.5px] bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5]"
+              >
+                <div class="size-full rounded-full border-2 border-white overflow-hidden">
+                  <img
+                    class="size-full max-w-none object-cover"
+                    src="{{ post.user.profile.avatar.url }}"
+                    alt="{{ post.user.username }}"
+                  />
+                </div>
+              </div>
+              <span class="font-semibold text-sm">{{ post.user.username }}</span>
+            </div>
+            <i class="ph-fill ph-dots-three-outline text-lg cursor-pointer"></i>
+          </div>
+          <figure class="w-full max-h-96 overflow-hidden bg-black flex items-center justify-center">
+            <img
+              src="{{ post.attachment.url }}"
+              alt="post"
+              class="w-full h-full object-scale-down"
+            />
+          </figure>
+          <div class="px-3 py-2">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex gap-3">
+                <div class="flex items-center gap-1">
+                  <form action="{% url 'like-post' post.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="cursor-pointer">
+                      {% if request.user in post.likes.all %}
+                      <i class="ph-fill ph-heart text-red-400 text-2xl"></i>
+                      {% else %}
+                      <i class="ph ph-heart text-2xl"></i>
+                      {% endif %}
+                    </button>
+                  </form>
+                </div>
+                <div class="flex items-center gap-1 cursor-pointer">
+                  <i class="ph ph-chat-circle text-2xl"></i>
+                </div>
+                <div class="flex items-center gap-1 cursor-pointer">
+                  <i class="ph ph-paper-plane-tilt text-2xl"></i>
+                </div>
+              </div>
+              <i class="ph ph-bookmark-simple text-2xl cursor-pointer"></i>
+            </div>
+            <p class="text-sm font-semibold">{{ post.like_counts }} likes</p>
+            <p class="text-sm">
+              <span class="font-semibold">{{ post.user.username }}</span>
+              {{ post.caption }}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </main>
-    <aside class="col-span-4">
-        <ul class="list bg-base-100 rounded-box shadow-md">
 
-            <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Most played songs this week</li>
-
-            <li class="list-row">
-                <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/1@94.webp" />
-                </div>
-                <div>
-                    <div>Dio Lupa</div>
-                    <div class="text-xs uppercase font-semibold opacity-60">Remaining Reason</div>
-                </div>
-                <button class="btn btn-square btn-ghost">
-                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
-                            stroke="currentColor">
-                            <path d="M6 3L20 12 6 21 6 3z"></path>
-                        </g>
-                    </svg>
-                </button>
-                <button class="btn btn-square btn-ghost">
-                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
-                            stroke="currentColor">
-                            <path
-                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-                            </path>
-                        </g>
-                    </svg>
-                </button>
-            </li>
-
-            <li class="list-row">
-                <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/4@94.webp" />
-                </div>
-                <div>
-                    <div>Ellie Beilish</div>
-                    <div class="text-xs uppercase font-semibold opacity-60">Bears of a fever</div>
-                </div>
-                <button class="btn btn-square btn-ghost">
-                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
-                            stroke="currentColor">
-                            <path d="M6 3L20 12 6 21 6 3z"></path>
-                        </g>
-                    </svg>
-                </button>
-                <button class="btn btn-square btn-ghost">
-                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
-                            stroke="currentColor">
-                            <path
-                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-                            </path>
-                        </g>
-                    </svg>
-                </button>
-            </li>
-
-            <li class="list-row">
-                <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/3@94.webp" />
-                </div>
-                <div>
-                    <div>Sabrino Gardener</div>
-                    <div class="text-xs uppercase font-semibold opacity-60">Cappuccino</div>
-                </div>
-                <button class="btn btn-square btn-ghost">
-                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
-                            stroke="currentColor">
-                            <path d="M6 3L20 12 6 21 6 3z"></path>
-                        </g>
-                    </svg>
-                </button>
-                <button class="btn btn-square btn-ghost">
-                    <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
-                            stroke="currentColor">
-                            <path
-                                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
-                            </path>
-                        </g>
-                    </svg>
-                </button>
-            </li>
-
-        </ul>
+    <aside
+      class="hidden xl:flex w-80 shrink-0 sticky top-8 self-start flex-col bg-gray-100 border border-gray-200 rounded-2xl p-4"
+    >
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-sm font-semibold text-gray-500">Suggested for you</span>
+        <a class="text-xs font-semibold cursor-pointer">See All</a>
+      </div>
+      <ul class="space-y-3">
+        <li class="flex items-center gap-3">
+          <img
+            class="size-8 rounded-full"
+            src="https://img.daisyui.com/images/profile/demo/1@94.webp"
+          />
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-semibold truncate">Dio Lupa</div>
+            <div class="text-xs text-gray-500 truncate">Followed by user</div>
+          </div>
+          <div class="text-xs font-semibold text-[#0095f6] cursor-pointer">Follow</div>
+        </li>
+        <li class="flex items-center gap-3">
+          <img
+            class="size-8 rounded-full"
+            src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+          />
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-semibold truncate">Ellie Beilish</div>
+            <div class="text-xs text-gray-500 truncate">Followed by user</div>
+          </div>
+          <div class="text-xs font-semibold text-[#0095f6] cursor-pointer">Follow</div>
+        </li>
+        <li class="flex items-center gap-3">
+          <img
+            class="size-8 rounded-full"
+            src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+          />
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-semibold truncate">Sabrino Gardener</div>
+            <div class="text-xs text-gray-500 truncate">Followed by user</div>
+          </div>
+          <div class="text-xs font-semibold text-[#0095f6] cursor-pointer">Follow</div>
+        </li>
+      </ul>
     </aside>
+  </div>
 </div>
 {% endblock %}

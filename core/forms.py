@@ -11,7 +11,7 @@ class LoginForm(forms.Form):
 
 class RegisterForm(forms.Form):
     username = forms.CharField(
-        min_length=10, widget=forms.TextInput({"class": "input border-2"})
+        min_length=3, widget=forms.TextInput({"class": "input border-2"})
     )
     email = forms.EmailField(widget=forms.EmailInput({"class": "input"}))
     password = forms.CharField(
@@ -24,7 +24,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ["bio", "avatar", "birth_date"]
         widgets = {
-            "bio": forms.TextInput(),
+            "bio": forms.TextInput({"class": "input"}),
             "avatar": forms.FileInput({"class": "file-input"}),
             "birth_date": forms.DateInput({"class": "input", "type": "date"}),
         }

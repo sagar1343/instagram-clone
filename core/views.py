@@ -42,12 +42,14 @@ def login_user(request):
     return render(request, "login.html", {"form": form})
 
 
+@login_required
 def logout_user(request):
     logout(request=request)
     messages.success(request=request, message="Logout Succesfull")
     return redirect("/login")
 
 
+@login_required
 def home(request):
     posts = Post.objects.all()
     return render(request=request, template_name="index.html", context={"posts": posts})
@@ -62,6 +64,9 @@ def profile(request):
         profile.user = request.user
         form.save()
         messages.success(request, message="created profile")
+        return redirect("/")
+    
+    if instance is not None:
         return redirect("/")
     return render(request, "profileform.html", {"form": form})
 
@@ -87,4 +92,4 @@ def like_post(request, id):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
-    return redirect(f"/#-{id}")
+    return redirect(f"/")

@@ -9,6 +9,9 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to="avatars")
     bio = models.TextField()
     birth_date = models.DateField()
+    followers = models.ManyToManyField(
+        to="self", symmetrical=False, blank=True, related_name="following"
+    )
 
     def __str__(self):
         return f"{self.user.username}:profile"

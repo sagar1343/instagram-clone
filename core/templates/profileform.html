@@ -1,10 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="mt-20 px-8">
-    <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" class="space-y-4">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit" class="btn btn-primary"> Submit </button>
-    </form>
+<div class="flex justify-center items-center px-4 py-20">
+    <div class="card bg-base-100 shadow-xl w-full max-w-sm">
+        <div class="card-body px-8 py-8">
+            <div class="text-center mb-8">
+                <h2 class="card-title text-2xl justify-center mt-3 text-3xl grand-hotel-regular">Instagram</h2>
+                <p class="text-base-content/60 text-sm mt-1">Create your first profile picture</p>
+            </div>
+            <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label for="{{ form.bio.id_for_label }}" class="label">{{ form.bio.label }}</label>
+                    {{ form.bio }}
+                    <p>{{ form.bio.errors }}</p>
+                </div>
+                <div>
+                    <label for="{{ form.avatar.id_for_label }}" class="label">{{ form.avatar.label }}</label>
+                    {{ form.avatar }}
+                    <p>{{ form.avatar.errors }}</p>
+                </div>
+                <div>
+                    <label for="{{ form.birth_date.id_for_label }}" class="label">{{ form.birth_date.label }}</label>
+                    {{ form.birth_date }}
+                    <p>{{ form.birth_date.errors }}</p>
+                </div>
+                <div class="flex justify-center mt-12">
+                    <button type="submit" class="btn w-full bg-blue-500 text-white"> Create </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </div>
 {% endblock %}

@@ -1,6 +1,4 @@
-@plugin "daisyui" {
-  themes: light --default emerald;
-}
+/* DaisyUI theme is applied via data-theme on <html> when using the CDN setup */
 
 .grand-hotel-regular {
   font-family: "Grand Hotel", cursive;
@@ -15,4 +13,9 @@
 
 .hide-scrollbar {
   scrollbar-width: none;
+}
+
+.errorlist > li {
+  font-size: x-small;
+  color: rgb(215, 50, 50);
 }
