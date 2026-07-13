@@ -33,4 +33,15 @@ class ProfileForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["attachment", "caption"]
+        fields = ["caption", "attachment"]
+        widgets = {
+            "caption": forms.TextInput(
+                {
+                    "class": "pl-8 input input-lg rounded-full grow",
+                    "placeholder": "Write something in your mind...",
+                }
+            ),
+            "attachment": forms.FileInput(
+                {"class": "hidden", "id": "attachment-input"}
+            ),
+        }

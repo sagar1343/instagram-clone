@@ -1,0 +1,52 @@
+<div class="space-y-6">
+    {% for post in posts %}
+    <div id="post-{{ post.id }}" class="card bg-gray-100 border border-gray-200 rounded-2xl">
+        <div class="py-2 px-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="size-8 shrink-0 rounded-full p-[1.5px] bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5]">
+                    <div class="size-full rounded-full border-2 border-white overflow-hidden">
+                        <img class="size-full max-w-none object-cover" src="{{ post.user.profile.avatar.url }}"
+                            alt="{{ post.user.username }}" />
+                    </div>
+                </div>
+                <span class="font-semibold text-sm">{{ post.user.username }}</span>
+            </div>
+            <i class="ph-fill ph-dots-three-outline text-lg cursor-pointer"></i>
+        </div>
+        <figure class="w-full max-h-96 overflow-hidden bg-black flex items-center justify-center">
+            <img src="{{ post.attachment.url }}" alt="post" class="w-full h-full object-scale-down" />
+        </figure>
+        <div class="px-3 py-2">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex gap-3">
+                    <div class="flex items-center gap-1">
+                        <form action="{% url 'like-post' post.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="cursor-pointer">
+                                {% if request.user in post.likes.all %}
+                                <i class="ph-fill ph-heart text-red-400 text-2xl"></i>
+                                {% else %}
+                                <i class="ph ph-heart text-2xl"></i>
+                                {% endif %}
+                            </button>
+                        </form>
+                    </div>
+                    <div class="flex items-center gap-1 cursor-pointer">
+                        <i class="ph ph-chat-circle text-2xl"></i>
+                    </div>
+                    <div class="flex items-center gap-1 cursor-pointer">
+                        <i class="ph ph-paper-plane-tilt text-2xl"></i>
+                    </div>
+                </div>
+                <i class="ph ph-bookmark-simple text-2xl cursor-pointer"></i>
+            </div>
+            <p class="text-sm font-semibold">{{ post.like_counts }} likes</p>
+            <p class="text-sm">
+                <span class="font-semibold">{{ post.user.username }}</span>
+                {{ post.caption }}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,9 @@
+<form action="{% url 'create-post' %}" method="post" enctype="multipart/form-data"
+    class="mb-4 flex gap-3 justify-between items-center">
+    {% csrf_token %}
+    {{ form.caption }}
+    {{ form.attachment }}
+    <button id="attachment-btn" type="button" class="btn btn-ghost rounded-full w-[48px] h-[48px]"><i
+            class="ph ph-image text-2xl"></i></button>
+    <button type="submit" class="btn bg-black text-white px-6 rounded-full">Post</button>
+</form>
