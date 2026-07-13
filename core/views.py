@@ -53,7 +53,9 @@ def logout_user(request):
 
 @login_required
 def home(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(
+        user__profile__in=request.user.profile.following.all()
+    ).order_by("-created_at")
     form = PostForm()
     return render(
         request=request,
@@ -103,6 +105,10 @@ def follow_profile(request, username):
     if request.method == "POST":
         target_profile = get_object_or_404(Profile, user__username=username)
         current_profile = request.user.profile
+
+        if target_profile == current_profile:
+            return redirect(f"/profile/{username}")
+
         if current_profile.following.filter(id=target_profile.id).exists():
             current_profile.following.remove(target_profile)
         else:
@@ -112,8 +118,9 @@ def follow_profile(request, username):
 
 @login_required
 def user_profile(request, username):
-    profile = Profile.objects.get(user__username=username)
+    profile = get_object_or_404(Profile, user__username=username)
     posts = Post.objects.filter(user__username=username)
+    is_following = request.user.profile.following.filter(id=profile.id).exists()
 
     return render(
         request,
@@ -122,5 +129,15 @@ def user_profile(request, username):
             "profile": profile,
             "posts": posts,
             "is_myprofile": request.user.username == username,
+            "is_following": is_following,
         },
     )
+
+
+@login_required
+def search_profiles(request):
+    search = request.GET.get("search")
+    profiles = []
+    if search:
+        profiles = Profile.objects.filter(user__username__contains=search)
+    return render(request, "search.html", {"search": search, "profiles": profiles})
