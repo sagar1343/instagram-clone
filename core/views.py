@@ -36,9 +36,11 @@ def login_user(request):
         user = authenticate(request=request, username=username, password=password)
         if not user:
             messages.error(request=request, message="Invalid username or password")
-            return redirect("/login")
+            return redirect("login-user")
         login(request=request, user=user)
-        return redirect("/profile")
+        if request.user.profile is None:
+            return redirect("profile")
+        return redirect("home")
     return render(request, "login.html", {"form": form})
 
 
@@ -46,7 +48,7 @@ def login_user(request):
 def logout_user(request):
     logout(request=request)
     messages.success(request=request, message="Logout Succesfull")
-    return redirect("/login")
+    return redirect("login-user")
 
 
 @login_required
@@ -68,11 +70,8 @@ def profile(request):
         profile = form.save(commit=False)
         profile.user = request.user
         form.save()
-        messages.success(request, message="created profile")
-        return redirect("/")
-
-    if instance is not None:
-        return redirect("/")
+        messages.success(request, message="Profile saved")
+        return redirect(f"/profile/{request.user.username}")
     return render(request, "profileform.html", {"form": form})
 
 
@@ -96,4 +95,32 @@ def like_post(request, id):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
-    return redirect(f"/")
+    return redirect(f"/#post-{id}")
+
+
+@login_required
+def follow_profile(request, username):
+    if request.method == "POST":
+        target_profile = get_object_or_404(Profile, user__username=username)
+        current_profile = request.user.profile
+        if current_profile.following.filter(id=target_profile.id).exists():
+            current_profile.following.remove(target_profile)
+        else:
+            current_profile.following.add(target_profile)
+    return redirect(f"/profile/{username}")
+
+
+@login_required
+def user_profile(request, username):
+    profile = Profile.objects.get(user__username=username)
+    posts = Post.objects.filter(user__username=username)
+
+    return render(
+        request,
+        "user-profile.html",
+        {
+            "profile": profile,
+            "posts": posts,
+            "is_myprofile": request.user.username == username,
+        },
+    )

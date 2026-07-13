@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% block content %}
+<div class="flex min-h-screen bg-white pt-16 lg:pt-0">
+    <aside
+        class="hidden lg:flex w-64 shrink-0 sticky top-0 h-screen flex-col border-r border-gray-200 bg-white px-3 py-5">
+        <a href="{% url 'home' %}"
+            class="mb-6 block px-3 pt-2 pb-4 text-3xl grand-hotel-regular leading-none cursor-pointer">
+            Instagram
+        </a>
+
+        <nav class="flex flex-1 flex-col gap-1">
+            <a href="{% url 'home' %}"
+                class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] hover:bg-gray-50 transition-colors cursor-pointer">
+                <i class="ph ph-house text-[26px]"></i>
+                <span>Home</span>
+            </a>
+            <a
+                class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
+                <i class="ph ph-magnifying-glass text-[26px]"></i>
+                <span>Search</span>
+            </a>
+            <a
+                class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
+                <i class="ph ph-compass text-[26px]"></i>
+                <span>Explore</span>
+            </a>
+            <a
+                class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
+                <i class="ph ph-film-strip text-[26px]"></i>
+                <span>Reels</span>
+            </a>
+            <a
+                class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
+                <i class="ph ph-plus-square text-[26px]"></i>
+                <span>Create</span>
+            </a>
+            <a
+                class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
+                <span class="inline-flex size-[26px] items-center justify-center overflow-hidden rounded-full">
+                    {% if request.user.profile.avatar %}
+                    <img class="size-full object-cover" src="{{ request.user.profile.avatar.url }}"
+                        alt="{{ request.user.username }}" />
+                    {% else %}
+                    <i class="ph ph-user-circle text-[26px]"></i>
+                    {% endif %}
+                </span>
+                <span class="font-bold">Profile</span>
+            </a>
+        </nav>
+
+        <a href="{% url 'logout-user' %}"
+            class="mt-auto flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
+            <i class="ph ph-sign-out text-[26px]"></i>
+            <span>Logout</span>
+        </a>
+    </aside>
+
+    <div class="flex flex-1 min-w-0 justify-center gap-10 px-6 py-8">
+        <main class="w-full max-w-xl shrink-0">
+            <section>
+                <div class="flex gap-10">
+                    <div class="w-[120px] h-[120px] rounded-full overflow-hidden  ">
+                        <img src="{{ profile.avatar.url }}" alt="profil-photo-{{ profile.username }}"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                        <div class="flex gap-4">
+                            <h2 class="text-lg font-medium">{{ profile.user.username }}</h2>
+                            {% if is_myprofile %}
+                            <a href="{% url 'profile' %}" class="btn btn-soft btn-sm">Edit</a>
+                            {% else %}
+                            <form action="{% url 'follow-profile' profile.user.username %}" method="post">
+                                <a href="" class="btn btn-soft btn-sm">
+                                    following
+                                </a>
+
+                            </form>
+                            {% endif %}
+                        </div>
+                        <ul class="text-gray-700 mt-4 flex gap-6 items-center">
+                            <li>{{ posts.count }} posts</li>
+                            <li>{{ profile.followers.count }} followers</li>
+                            <li>{{ profile.following.count }} following</li>
+                        </ul>
+                        <p class="mt-4 text-gray-700 ">{{ profile.bio }}</p>
+                    </div>
+                </div>
+            </section>
+            <hr class="mt-10 text-neutral-200">
+            <section class="text-gray-700 -mt-px">
+                <div class="flex justify-center">
+                    <span class="pt-4 border-t border-gray-600">
+                        <div class="flex gap-2 items-center">
+                            <i class="ph ph-grid-four text-2xl"></i>
+                            Posts
+                        </div>
+                    </span>
+                </div>
+                <div class="mt-6 grid grid-cols-3 gap-2">
+                    {% for post in posts %}
+                    <a href="/#post-{{ post.id }}" class="h-[200px] cursor-pointer">
+                        <img src="{{ post.attachment.url }}" class="object-cover w-full h-full">
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+{% endblock %}

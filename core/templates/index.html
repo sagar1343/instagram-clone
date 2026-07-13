@@ -33,7 +33,7 @@
         <i class="ph ph-plus-square text-[26px]"></i>
         <span>Create</span>
       </a>
-      <a
+      <a href="{% url 'user-profile' request.user.username %}"
         class="flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
         <span class="inline-flex size-[26px] items-center justify-center overflow-hidden rounded-full">
           {% if request.user.profile.avatar %}
@@ -47,10 +47,10 @@
       </a>
     </nav>
 
-    <a
+    <a href="{% url 'logout-user' %}"
       class="mt-auto flex items-center gap-4 rounded-lg px-3 py-3 text-[16px] font-normal hover:bg-gray-50 transition-colors cursor-pointer">
-      <i class="ph ph-list text-[26px]"></i>
-      <span>More</span>
+      <i class="ph ph-sign-out text-[26px]"></i>
+      <span>Logout</span>
     </a>
   </aside>
 
