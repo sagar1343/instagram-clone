@@ -10,9 +10,9 @@
                             alt="{{ post.user.username }}" />
                     </div>
                 </div>
-                {% load custom_tags %}
                 <span class="font-semibold text-sm">{{ post.user.username }} <i class="ph-bold ph-dot"></i>
-                    <span class="font-light text-xs"> {{ post.created_at | timesince | short_time }}</span>
+                    {% load datefilters %}
+                    <span class="font-light text-xs"> {{ post.created_at | timesince | short_time }} ago</span>
                 </span>
             </div>
             <i class="ph-fill ph-dots-three-outline text-lg cursor-pointer"></i>
